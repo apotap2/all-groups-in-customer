@@ -39,7 +39,10 @@ def main():
         groups = results.get('groups', [])
 
         for group in groups:
-            print(u'{0}'.format(group['email']))
+            print(u'{0}\t{1}'.format(group['email'], group['description']))
+            members = service.members().list(groupKey=group['id']).execute().get('members', [])
+            for m in members:
+                print(u'\t{0}'.format(m['email']))
 
         nextPageToken = results.get('nextPageToken')
         if nextPageToken is None: 
